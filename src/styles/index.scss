@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400..800&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+body {
+  min-height: 100vh;
+  padding: 0 15vw 10vh;
+  margin: 0;
+  background-color: #120627;
+  @media only screen and (max-width: 1300px) {
+    padding: 0 1vw;
+    padding-bottom: 10vh;
+  }
+}
+* {
+  border-radius: 5px;
+  transition: all 0.2s;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.header-bar {
+  position: fixed;
+  position: sticky;
+  z-index: 999;
+  width: calc(100% - 30vw);
+  width: 100%;
+  height: 10vh;
+  margin: 0 -1vw;
+  padding: 0px 20px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  background-color: #251e3dde;
+  color: #fdf6ff;
+  backdrop-filter: blur(10px);
+  top: 0px;
+  @media only screen and (max-width: 1300px) {
+    position: relative;
+    width: auto;
+  }
+}
+.cards {
+  margin: 10px auto;
+  padding: 10px 20px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  &.books {
+    background-color: #3c3354;
+    cursor: pointer;
+    img {
+      width: calc(50px + 3.2vw);
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    }
+    .title {
+      color: #f7ebff;
+      font-size: calc(8px + 0.8vw);
+    }
+    .active {
+      color: #ebdeff;
+      font-weight: 500;
+    }
+    .passive {
+      color: #9a8fb5;
+      font-size: calc(10px + 0.4vw);
+    }
+  }
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    scale: 1.3;
+    &:hover {
+      scale: 1.6;
+    }
+    svg {
+      filter: drop-shadow(0.2rem 0.2rem 0.3rem rgba(0, 0, 0, 0.5));
+    }
+  }
+  &.favs {
+    background-color: #532348;
+    text-align: center;
+    position: sticky;
+    top: calc(10vh + 10px);
+    .header {
+      text-align: center;
+      background-color: #f7ebff;
+      font-weight: bold;
+      font-size: calc(1vw + 10px);
+      padding-top: 10px;
+      padding-bottom: 10px;
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      color: #120627;
+    }
+    .books {
+      background-color: #9a4258;
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      font-weight: 600;
+      color: #fdf6ff;
+      margin: 5px 0;
+      padding: 10px;
+      border-width: 0px;
+    }
+    @media only screen and (max-width: 1300px) {
+      top: 10px;
+    }
+  }
+}
