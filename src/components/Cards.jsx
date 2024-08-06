@@ -1,5 +1,5 @@
 import { Col, Row, Button, List, Space } from "antd";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled, FrownOutlined } from "@ant-design/icons";
 import "animate.css";
 export function BookCards({
   key,
@@ -17,14 +17,14 @@ export function BookCards({
 }) {
   return (
     <>
-      <div
-        className={"cards books"}
-        key={key}
-        onClick={() => window.open(link)}
-      >
+      <div className={"cards books"} key={key}>
         <Row gutter={[16, 0]}>
           <Col flex="100px">
-            <img src={`../public/assets/${image}`} alt="" />
+            <img
+              src={`../public/assets/${image}`}
+              alt=""
+              onClick={() => window.open(link)}
+            />
           </Col>
           <Col flex={"auto"}>
             {favorites.includes(title) ? (
@@ -45,7 +45,9 @@ export function BookCards({
               />
             )}
             <Space size={"small"} align="start">
-              <h2 className="title">{title}</h2>
+              <h2 className="title" onClick={() => window.open(link)}>
+                {title}
+              </h2>
             </Space>
             <br />
             <Space size={"large"} align="start">
@@ -94,6 +96,21 @@ export function FavCards({ favorites }) {
                 </List.Item>
               ))}
             </List>
+          </Col>
+        </Row>
+      </div>
+    </>
+  );
+}
+export function NotFound() {
+  return (
+    <>
+      <div className={"cards not-found"}>
+        <Row gutter={[16, 0]}>
+          <Col span={24}>
+            <h1>
+              No results found <FrownOutlined />
+            </h1>
           </Col>
         </Row>
       </div>

@@ -1,57 +1,116 @@
-import { Col, Row } from "antd";
-import { BookCards, FavCards } from "./Cards";
+import { Col, Row, Divider, Input, Spin, Button, Space } from "antd";
+import { SearchOutlined, CloseOutlined } from "@ant-design/icons";
+import signature from "../assets/signature.png";
+import { BookCards, FavCards, NotFound } from "./Cards";
 import { books } from "../constants/mockData.js";
 import { useState } from "react";
 import "animate.css";
-function Layout({ children }) {
-  const [favorites, setFavorites] = useState([]);
+function Layout() {
+  const [favorites, setFavorites] = useState(["Things Fall Apart"]);
+  const [searchValue, setSearchValue] = useState("");
+  const [data, setData] = useState(books);
+  const [loading, setLoading] = useState(false);
+  const link = "https://github.com/mehrshaad";
+  const onSearch = () => {
+    setLoading(() => true);
+    const filteredBooks = books.filter((story) => {
+      const item = JSON.stringify(story);
+      return item.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase());
+    });
+    setTimeout(function () {
+      setData(filteredBooks);
+      setLoading(() => false);
+    }, 500);
+  };
   return (
     <>
+      {loading && (
+        <div className="loading">
+          <Spin spinning={loading} fullscreen size="large" />
+        </div>
+      )}
       <div className="header-bar">
-        <h1>Mehrshad Dadashzadeh</h1>
+        <Row justify="space-between" align="middle" style={{ height: "75px" }}>
+          <Col flex={0}>
+            <img
+              className="sign"
+              src={signature}
+              alt=""
+              onClick={() => window.open(link)}
+            />
+          </Col>
+          <Col flex={3}>
+            <h2 className="header-title">Digital Library</h2>
+          </Col>
+          <Col flex={1} align="end">
+            <h3 className="developer" onClick={() => window.open(link)}>
+              Developed By Ali Dadashzadeh
+            </h3>
+          </Col>
+        </Row>
       </div>
       <Row gutter={16} dir="ltr" justify={"space-between"}>
-        <Col
-          dir="ltr"
-          // xs={{ span: 24 }}
-          // sm={{ span: 24 }}
-          // md={{ span: 24 }}
-          // lg={
-          //   favorites.length != 0 && {
-          //     span: 18,
-          //   }
-          // }
-          // xl={
-          //   favorites.length != 0 && {
-          //     span: 18,
-          //   }
-          // }
-          span={favorites.length != 0 ? 18 : 24}
-        >
+        <Col span={24}>
+          <Space.Compact
+            className="search-space"
+            direction="horizontal"
+            style={{ width: "100%" }}
+          >
+            <Input
+              placeholder="Search the books..."
+              size="large"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="search"
+              prefix={<SearchOutlined />}
+              onPressEnter={onSearch}
+            />
+            <Button
+              title="Search"
+              type="primary"
+              icon={<SearchOutlined />}
+              size="large"
+              onClick={onSearch}
+            >
+              Search
+            </Button>
+            <Button
+              title="Search"
+              type="primary"
+              danger
+              icon={<CloseOutlined />}
+              size="large"
+              onClick={() => {
+                setData(() => books);
+                setSearchValue(() => "");
+              }}
+            >
+              Clear
+            </Button>
+          </Space.Compact>
+        </Col>
+      </Row>
+      <Row gutter={16} dir="ltr" justify={"space-between"}>
+        <Col dir="ltr" span={favorites.length != 0 ? 18 : 24}>
           <Row justify={"space-between"}>
-            {books.map((items, index) => (
-              <Col span={24}>
-                <BookCards
-                  key={index}
-                  {...items}
-                  favorites={favorites}
-                  setFavorites={setFavorites}
-                />
-              </Col>
-            ))}
+            {data.length != 0 ? (
+              data.map((items, index) => (
+                <Col span={24}>
+                  <BookCards
+                    key={index}
+                    {...items}
+                    favorites={favorites}
+                    setFavorites={setFavorites}
+                  />
+                </Col>
+              ))
+            ) : (
+              <NotFound />
+            )}
           </Row>
         </Col>
         {favorites.length != 0 && (
           <Col
-            // xs={{ span: 24 }}
-            // sm={{ span: 24 }}
-            // md={{ span: 24 }}
-            // lg={{
-            //   span: 6,
-            // }}
-            // xl={{
-            //   span: 6,
-            // }}
             span={6}
             dir="ltr"
             className="animate__animated animate__fadeInRight animate__faster"
@@ -59,6 +118,7 @@ function Layout({ children }) {
             <FavCards favorites={favorites} />
           </Col>
         )}
+        <Divider className="footer">Ali Dadashzadeh © Aug, 2024</Divider>
       </Row>
     </>
   );

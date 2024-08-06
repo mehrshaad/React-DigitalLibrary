@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400..800&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
 body {
   min-height: 100vh;
   padding: 0 15vw 10vh;
@@ -15,15 +15,19 @@ body {
   font-family: "Josefin Sans", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 .header-bar {
-  position: fixed;
   position: sticky;
   z-index: 999;
-  width: calc(100% - 30vw);
   width: 100%;
-  height: 10vh;
+  min-height: 75px;
   margin: 0 -1vw;
+  margin-top: 20px;
   padding: 0px 20px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
@@ -31,9 +35,96 @@ body {
   color: #fdf6ff;
   backdrop-filter: blur(10px);
   top: 0px;
+  .header-title {
+    font-family: "Edu AU VIC WA NT Hand", cursive;
+  }
+  .developer {
+    color: #9a8fb5;
+    cursor: pointer;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 246px;
+      height: 2px;
+      border-radius: 4px;
+      background-color: #f1bef9;
+      bottom: 15px;
+      right: 0;
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.3s ease-in-out;
+    }
+    &:hover {
+      color: #fdf6ff;
+      &::before {
+        transform-origin: right;
+        transform: scaleX(1);
+      }
+    }
+  }
+  .sign {
+    filter: invert(1);
+    height: 50px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
   @media only screen and (max-width: 1300px) {
     position: relative;
     width: auto;
+    @media only screen and (max-width: 650px) {
+      .developer {
+        display: none;
+      }
+    }
+    @media only screen and (max-width: 400px) {
+      .sign {
+        display: none;
+      }
+    }
+  }
+}
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(5px);
+  z-index: 99999;
+  color: #fdf6ff;
+  width: 100vw;
+  height: 100vh;
+}
+.search-space {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  opacity: 0.9;
+  .search {
+    border-radius: 5px 0 0 5px !important;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+      rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+      rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
+  button {
+    margin: 0 !important;
+    padding-left: calc(10px + 1vw);
+    padding-right: calc(10px + 1vw);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+      rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+      rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    border: 0;
+    &:nth-child(2) {
+      border-radius: 0 !important;
+    }
+    &:nth-child(3) {
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      border-radius: 0 5px 5px 0 !important;
+    }
+    @media only screen and (max-width: 600px) {
+      span:nth-child(2) {
+        display: none;
+      }
+    }
   }
 }
 .cards {
@@ -43,16 +134,39 @@ body {
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   &.books {
     background-color: #3c3354;
-    cursor: pointer;
     img {
+      cursor: pointer;
+      opacity: 0.7;
       width: calc(50px + 3.2vw);
       box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      &:hover {
+        opacity: 1;
+      }
     }
     .title {
+      cursor: pointer;
+      position: relative;
       color: #f7ebff;
       font-size: calc(8px + 0.8vw);
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background-color: #f1bef9;
+        bottom: -5px;
+        left: 0;
+        transform-origin: left;
+        transform: scaleX(0);
+        transition: transform 0.3s ease-in-out;
+      }
+      &:hover::before {
+        transform-origin: left;
+        transform: scaleX(1);
+      }
     }
     .active {
       color: #ebdeff;
@@ -80,12 +194,14 @@ body {
     background-color: #532348;
     text-align: center;
     position: sticky;
-    top: calc(10vh + 10px);
+    top: calc(75px + 10px);
+    // top: calc(10vh + 10px);
     .header {
       text-align: center;
       background-color: #f7ebff;
       font-weight: bold;
-      font-size: calc(1vw + 10px);
+      font-size: calc(1vw + 9px);
+      // font-size: 100%;
       padding-top: 10px;
       padding-bottom: 10px;
       box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
@@ -108,4 +224,20 @@ body {
       top: 10px;
     }
   }
+  &.not-found {
+    background-color: #3c3354;
+    text-align: center;
+    width: 100%;
+    padding: 50px 0;
+    color: #fdf6ff !important;
+    h1 {
+      font-size: 2rem !important;
+    }
+  }
+}
+.footer {
+  margin-top: 50px !important;
+  text-align: center;
+  color: #fdf6ff !important;
+  border-color: #3c3354 !important;
 }
