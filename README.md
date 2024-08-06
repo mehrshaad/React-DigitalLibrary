@@ -34,7 +34,7 @@ git clone <https://github.com/mehrshaad/React-DigitalLibrary.git>
 After cloning the repository, navigate to the project directory using the following command:
 
 ```bash
-cd ContactApp-Demo
+cd React-DigitalLibrary
 ```
 
 ### 3. Install dependencies
