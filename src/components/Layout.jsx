@@ -3,14 +3,28 @@ import { SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import signature from "../assets/signature.png";
 import { BookCards, FavCards, NotFound } from "./Cards";
 import { books } from "../constants/mockData.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "animate.css";
 function Layout() {
   const [favorites, setFavorites] = useState(["Things Fall Apart"]);
   const [searchValue, setSearchValue] = useState("");
   const [data, setData] = useState(books);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const link = "https://github.com/mehrshaad";
+  useEffect(() => {
+    const onPageLoad = () => {
+      setTimeout(function () {
+        setLoading(() => false);
+      }, 500);
+    };
+
+    if (document.readyState === "complete") {
+      onPageLoad();
+    } else {
+      window.addEventListener("load", onPageLoad, false);
+      return () => window.removeEventListener("load", onPageLoad);
+    }
+  }, []);
   const onSearch = () => {
     setLoading(() => true);
     const filteredBooks = books.filter((story) => {

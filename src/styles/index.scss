@@ -67,6 +67,9 @@ body {
     height: 50px;
     cursor: pointer;
     margin-right: 20px;
+    &:hover {
+      opacity: 0.8;
+    }
   }
   @media only screen and (max-width: 1300px) {
     position: relative;
