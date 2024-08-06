@@ -81,8 +81,12 @@ function Layout() {
               icon={<CloseOutlined />}
               size="large"
               onClick={() => {
-                setData(() => books);
-                setSearchValue(() => "");
+                setLoading(() => true);
+                setTimeout(function () {
+                  setData(() => books);
+                  setSearchValue(() => "");
+                  setLoading(() => false);
+                }, 100);
               }}
             >
               Clear
