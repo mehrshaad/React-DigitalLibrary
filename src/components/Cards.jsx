@@ -20,11 +20,7 @@ export function BookCards({
       <div className={"cards books"} key={key}>
         <Row gutter={[16, 0]}>
           <Col flex="100px">
-            <img
-              src={`../public/assets/${image}`}
-              alt=""
-              onClick={() => window.open(link)}
-            />
+            <img src={`./${image}`} alt="" onClick={() => window.open(link)} />
           </Col>
           <Col flex={"auto"}>
             {favorites.includes(title) ? (
